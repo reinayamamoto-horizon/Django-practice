@@ -1,9 +1,9 @@
 from django import forms
-from .models import User
+from .models import Article
 
-class UserForm(forms.ModelForm):
+class ArticleForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = Article
         fields = ['title', 'article_text', 'article', 'tag']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Article Title'}),
