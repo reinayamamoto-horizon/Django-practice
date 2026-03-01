@@ -33,12 +33,12 @@
               <a class="nav-link active" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'create' %}">
+              <a class="nav-link" href="{% url 'create_article' %}">
                 <i class="ion-compose"></i>&nbsp;New Article
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/settings">
+              <a class="nav-link" href="#">
                 <i class="ion-gear-a"></i>&nbsp;Settings
               </a>
             </li>
@@ -54,8 +54,8 @@
     </header>
 
     <div class="home-page">
-      <div class="banner">
-        <div class="container">
+      <div class="banner bg-success">
+        <div class="container text-white">
           <h1 class="logo-font">conduit</h1>
           <p>A place to share your knowledge.</p>
         </div>
@@ -97,7 +97,7 @@
               </div>
 
               <!-- 記事詳細ページへリンク -->
-              <a href="{% url 'editor' %}" class="preview-link">
+              <a href="{% url 'post_article' post.pk %}" class="preview-link">
                 <h1>{{ post.title }}</h1>
 
                 <p>{{ post.article_text }}</p>
@@ -115,6 +115,12 @@
             {% empty %}
             <p>まだ投稿がありません。</p>
             {% endfor %}
+
+            <button class="btn pull-xs-right btn-primary" type="button">
+              <a class="text-white logo-font" href="{% url 'create_article' %}"
+                >Create</a
+              >
+            </button>
 
             <ul class="pagination">
               <li class="page-item active">
