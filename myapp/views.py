@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
 from .models import Article
 
@@ -26,6 +27,7 @@ def editor_article(request, pk):
 
     return render(request, 'myapp/create.html', {'form': form})
 
+@login_required
 def create_article(request):
     if request.method == "POST":
         form = ArticleForm(request.POST)

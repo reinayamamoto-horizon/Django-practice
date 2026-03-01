@@ -34,6 +34,7 @@ STATIC_URL = '/static/'
 
 INSTALLED_APPS = [
     'myapp',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
