@@ -1,0 +1,116 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Import the custom Bootstrap 4 theme from our hosted CDN -->
+    <link rel="stylesheet" href="{% static 'myapp/css/main.css' %}" />
+    <title>create</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">conduit</a>
+          <ul class="nav navbar-nav pull-xs-right">
+            <li class="nav-item">
+              <!-- Add "active" class when you're on that page" -->
+              <a class="nav-link active" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create_article' %}">
+                <i class="ion-compose"></i>&nbsp;New Article
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'settings' %}">
+                {% if request.user.profile_image %}
+                  <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.username }}" class="user-pic" />
+                {% else %}
+                  <img src="{% static 'myapp/img/default.png' %}" alt="" class="user-pic" />
+                {% endif %}
+                {{ request.user.username }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="create-page">
+      <div class="banner">
+        <div class="container">
+          <h1 class="logo-font">
+            {% if form.instance.pk %}Editor{% else %}Create{% endif %}
+          </h1>
+          <p>Post what you think.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="create-page">
+      <div class="container page">
+        <div class="row">
+          <div class="col-md-10 offset-md-1 col-xs-12">
+            <ul class="error-messages">
+              <li>That title is required</li>
+            </ul>
+
+            <form method="post" id="create">
+              {% csrf_token %}
+              <fieldset>
+                <fieldset class="form-group">{{ form.title }}</fieldset>
+                <fieldset class="form-group">{{ form.article_text }}</fieldset>
+                <fieldset class="form-group">{{ form.article }}</fieldset>
+                <fieldset class="form-group">
+                  {{ form.tag }}
+                  <div class="tag-list">
+                    <span class="tag-default tag-pill">
+                      <i class="ion-close-round"></i> tag
+                    </span>
+                  </div>
+                </fieldset>
+                <button
+                  class="btn btn-lg pull-xs-right btn-primary"
+                  type="submit"
+                >
+                  {% if form.instance.pk %}
+                   Update Article 
+                  {% else %} 
+                  Publish Article 
+                  {% endif %}
+                </button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <a href="/" class="logo-font">conduit</a>
+        <span class="attribution">
+          An interactive learning project from
+          <a href="https://thinkster.io">Thinkster</a>. Code &amp; design
+          licensed under MIT.
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

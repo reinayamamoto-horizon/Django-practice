@@ -1,0 +1,56 @@
+INFO 2026-03-08 16:22:27,273 autoreload Watching for file changes with StatReloader
+WARNING 2026-03-08 16:22:28,998 log Not Found: /favicon.ico
+WARNING 2026-03-08 16:31:36,221 log Not Found: /media/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8 2026-03-08 16.24.16.png
+WARNING 2026-03-08 16:32:55,740 log Not Found: /profile/eric-simons
+WARNING 2026-03-08 16:36:15,946 log Not Found: /favicon.ico
+WARNING 2026-03-08 16:38:48,509 log Not Found: /favicon.ico
+WARNING 2026-03-08 16:38:53,767 log Not Found: /profile/eric-simons
+WARNING 2026-03-08 16:39:28,970 log Not Found: /profile/eric-simons
+WARNING 2026-03-08 16:39:29,774 log Not Found: /profile/eric-simons
+WARNING 2026-03-08 16:39:33,857 log Not Found: /profile/eric-simons
+WARNING 2026-03-08 16:40:42,991 log Not Found: /favicon.ico
+INFO 2026-03-08 16:52:52,955 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:52:53,571 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:52:56,700 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:52:57,226 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:06,436 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:06,950 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:09,056 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:09,589 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:22,839 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:23,359 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:25,479 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:25,993 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:28,103 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:28,629 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:34,776 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:35,287 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:38,400 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:38,934 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:42,050 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:42,570 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:44,643 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:45,181 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:53:48,300 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:53:48,840 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-08 16:54:27,188 log Internal Server Error: /home/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/code/myapp/views.py", line 8, in home
+    paginator = Paginator(posts_list, 10)  # 10件ごと
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+INFO 2026-03-08 16:54:50,882 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:54:51,401 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:54:52,487 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:54:53,005 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:55:35,858 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:55:36,374 autoreload Watching for file changes with StatReloader
+INFO 2026-03-08 16:55:40,504 autoreload /code/myapp/views.py changed, reloading.
+INFO 2026-03-08 16:55:41,045 autoreload Watching for file changes with StatReloader
+WARNING 2026-03-08 16:55:47,865 log Not Found: /favicon.ico
