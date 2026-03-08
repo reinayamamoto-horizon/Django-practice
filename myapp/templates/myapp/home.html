@@ -20,17 +20,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'myapp/css/main.css' %}" />
-    <title>Document</title>
+    <title>conduit</title>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-light">
         <div class="container">
-          <a class="navbar-brand" href="/">conduit</a>
+          <a class="navbar-brand" href="{% url 'home' %}">conduit</a>
           <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
               <!-- Add "active" class when you're on that page" -->
-              <a class="nav-link active" href="/">Home</a>
+              <a class="nav-link active" href="{% url 'home' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'create_article' %}">
@@ -38,14 +38,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="ion-gear-a"></i>&nbsp;Settings
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile/eric-simons">
-                <img src="" class="user-pic" />
-                Eric Simons
+              <a class="nav-link" href="{% url 'settings' %}">
+                {% if request.user.profile_image %}
+                  <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.username }}" class="user-pic" />
+                {% else %}
+                  <img src="{% static 'myapp/img/default.png' %}" alt="" class="user-pic" />
+                {% endif %}
+                {{ request.user.username }}
               </a>
             </li>
           </ul>
@@ -77,15 +76,17 @@
             {% for post in posts %}
             <div class="article-preview">
               <div class="article-meta">
-                <!-- プロフィール画像（固定画像の例） -->
+                <!-- プロフィール画像 -->
                 <a href="#">
-                  <img src="http://i.imgur.com/N4VcUeJ.jpg" />
+                  {% if post.user and post.user.profile_image %}
+                    <img src="{{ post.user.profile_image.url }}" alt="{{ post.user.username }}" />
+                  {% else %}
+                    <img src="{% static 'myapp/img/default.png' %}" alt="" />
+                  {% endif %}
                 </a>
 
                 <div class="info">
-                  <!-- 投稿者（仮で固定） -->
-                  <a href="#" class="author">Author Name</a>
-
+                  <a href="#" class="author">{{ post.user.username }}</a>
                   <!-- 作成日（モデルにcreated_atがある場合） -->
                   <span class="date">{{ post.created_at|date:"F d Y" }}</span>
                 </div>

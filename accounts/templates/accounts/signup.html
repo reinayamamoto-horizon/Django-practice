@@ -27,9 +27,9 @@
       <div class="container page">
         <div class="row">
           <div class="col-md-6 offset-md-3 col-xs-12">
-            <h1 class="text-xs-center">Log in</h1>
+            <h1 class="text-xs-center">Sign up</h1>
             <p class="text-xs-center">
-              <a href="{% url 'signup' %}">アカウントを登録しますか？</a>
+              <a href="{% url 'login' %}">Have an account?</a>
             </p>
 
             <ul class="error-messages">
@@ -37,17 +37,21 @@
               <li>{{ error }}</li>
               {% endif %}
             </ul>
-    
+
             <form method="post" action="">
               {% csrf_token %}
               <fieldset class="form-group">
-                <input class="form-control form-control-lg" type="email" name="email" placeholder="Email" required />
+                <input class="form-control form-control-lg" type="text" name="username" placeholder="Username" />
               </fieldset>
               <fieldset class="form-group">
-                <input class="form-control form-control-lg" type="password" name="password" placeholder="Password" required/>
+                <input class="form-control form-control-lg" type="text" name="email" placeholder="Email" />
               </fieldset>
-              <button type="submit" class="btn btn-lg btn-primary pull-xs-right">Log in</button>
+              <fieldset class="form-group">
+                <input class="form-control form-control-lg" type="password" name="password" placeholder="Password" />
+              </fieldset>
+              <button type="submit" class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
             </form>
+            
           </div>
         </div>
       </div>

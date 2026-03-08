@@ -1,31 +1,59 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.hashers import check_password, make_password
 from .models import User
-from .forms import LoginForm
+from django.db import IntegrityError
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from .forms import UserForm
 
-# ログインビュー
-def login_view(request):
+def signup_view (request):
     if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            try:
-                user = User.objects.get(email=email)
-                if check_password(password, user.password):
-                    # ログイン成功: セッションにユーザーIDを保存
-                    request.session['user_id'] = user.user_id
-                    return redirect('home')
-                else:
-                    messages.error(request, "パスワードが違います")
-            except User.DoesNotExist:
-                messages.error(request, "ユーザーが存在しません")
-    else:
-        form = LoginForm()
-    return render(request, 'accounts/login.html', {'form': form})
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        try:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
+            login(request,user)
+        except IntegrityError:
+            return render(request, "accounts/signup.html", {"error": "このメールアドレスは既に登録されています"})
 
-# ログアウトビュー
+        return redirect("home")
+
+    return render(request, "accounts/signup.html")
+
+
+def login_view(request):
+
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("home")
+        else:
+            return render(request, "accounts/login.html", {"error": "ログイン失敗"})
+
+    return render(request, "accounts/login.html")
+
+
+@login_required 
+def settings(request):
+    if request.method == "POST":
+        form = UserForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('settings')
+    else:
+        form = UserForm(instance=request.user)
+
+    return render(request, 'accounts/settings.html', {'form': form})
+
 def logout_view(request):
-    request.session.flush()  # セッション情報を削除
-    return redirect('login')
+    logout(request)
+    return redirect("login")

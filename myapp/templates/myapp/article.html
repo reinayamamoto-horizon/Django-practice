@@ -20,17 +20,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'myapp/css/main.css' %}" />
-    <title>Document</title>
+    <title>Article</title>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-light">
         <div class="container">
-          <a class="navbar-brand" href="/">Article</a>
+          <a class="navbar-brand" href="{% url 'home' %}">conduit</a>
           <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
               <!-- Add "active" class when you're on that page" -->
-              <a class="nav-link active" href="/">Home</a>
+              <a class="nav-link active" href="{% url 'home' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'create_article' %}">
@@ -38,28 +38,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/settings">
-                <i class="ion-gear-a"></i>&nbsp;Settings
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile/eric-simons">
-                <img src="" class="user-pic" />
-                Eric Simons
+              <a class="nav-link" href="{% url 'settings' %}">
+                {% if request.user.profile_image %}
+                  <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.username }}" class="user-pic" />
+                {% else %}
+                  <img src="{% static 'myapp/img/default.png' %}" alt="" class="user-pic" />
+                {% endif %}
+                {{ request.user.username }}
               </a>
             </li>
           </ul>
         </div>
       </nav>
     </header>
-
-    <div class="home-page">
-      <div class="banner">
-        <div class="container">
-          <h1 class="logo-font">Article</h1>
-          <p>A place to share your knowledge.</p>
-        </div>
-      </div>
 
 <div class="article-page">
   <div class="banner bg-dark">
@@ -68,19 +59,31 @@
       
 
       <div class="article-meta">
-        <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+        <a href="#">
+          {% if post.user and post.user.profile_image %}
+            <img src="{{ post.user.profile_image.url }}" alt="{{ post.user.username }}" />
+          {% else %}
+            <img src="{% static 'myapp/img/default.png' %}" alt="" />
+          {% endif %}
+        </a>
         <div class="info">
-          <a href="/profile/eric-simons" class="author text-white">Eric Simons</a>
-          <span class="date">January 20th</span>
+          <p class="author text-white">{{ post.user.username }}</p>
+          <span class="date text-white">{{ post.created_at|date:"F d Y" }}</span>
         </div>
-        
+
+        {% if user.is_authenticated and post.user and user == post.user %}
         <button class="btn btn-sm btn-outline-secondary">
           <i class="ion-edit"></i> 
           <a href="{% url 'editor_article' post.pk %}">Edit Article</a>
         </button>
-        <button class="btn btn-sm btn-outline-danger">
-          <i class="ion-trash-a"></i> Delete Article
-        </button>
+        <form method="post" action="{% url 'delete_article' post.pk %}" style="display: inline;"
+              onsubmit="return confirm('この記事を削除してもよろしいですか？');">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm btn-outline-danger">
+            <i class="ion-trash-a"></i> Delete Article
+          </button>
+        </form>
+      {% endif %}
       </div>
     </div>
   </div>
